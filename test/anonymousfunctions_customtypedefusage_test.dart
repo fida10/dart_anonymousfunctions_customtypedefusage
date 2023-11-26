@@ -2,15 +2,36 @@ import 'package:anonymousfunctions_customtypedefusage/anonymousfunctions_customt
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
+  group('Custom TypeDef - StringProcessor', () {
+    test('Count total characters in a list of strings', () {
+      final strings = ['hello', 'dart', 'world'];
+      // Replace `processStringList` with your function
+      expect(
+          processStringList(strings, (String str) => str.length), equals(14));
     });
 
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+    test('Empty list returns zero', () {
+      List<String> strings = [];
+      expect(processStringList(strings, (String str) => str.length), equals(0));
+    });
+
+    test('List with empty strings returns zero', () {
+      final strings = ['', '', ''];
+      expect(processStringList(strings, (String str) => str.length), equals(0));
+    });
+
+    test('List with various length strings', () {
+      final strings = ['a', 'ab', 'abc'];
+      expect(processStringList(strings, (String str) => str.length), equals(6));
+    });
+
+    test('Processing strings with custom logic', () {
+      final strings = ['apple', 'banana', 'cherry'];
+      // Custom logic: Count of 'a' characters in each string
+      expect(
+          processStringList(
+              strings, (String str) => 'a'.allMatches(str).length),
+          equals(4));
     });
   });
 }
